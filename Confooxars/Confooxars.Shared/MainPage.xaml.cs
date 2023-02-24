@@ -25,7 +25,8 @@ using Windows.UI.Core;
 using Windows.System;
 
 
-#if __ANDROID__
+
+#if __ANDROID__ || __WASM__
 using ReactiveUI;
 #endif
 
@@ -87,7 +88,7 @@ namespace Confooxars
             var sourceObservable = _sourceCache.Connect();
 
             sourceObservable
-#if __ANDROID__
+#if __ANDROID__ || __WASM__
                 .ObserveOn(RxApp.MainThreadScheduler)
 #else
                 .ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
@@ -99,7 +100,7 @@ namespace Confooxars
             sourceObservable
                 .Filter(a => a.Id % 2 == 0)
                 .Sort(SortExpressionComparer<Photo>.Descending(b => b.Id))
-#if __ANDROID__
+#if __ANDROID__ || __WASM__
                 .ObserveOn(RxApp.MainThreadScheduler)
 #else
                 .ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
@@ -110,7 +111,7 @@ namespace Confooxars
 
             sourceObservable
                 .Filter(a => a.Id % 10 == 0)
-#if __ANDROID__
+#if __ANDROID__ || __WASM__
                 .ObserveOn(RxApp.MainThreadScheduler)
 #else
                 .ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
