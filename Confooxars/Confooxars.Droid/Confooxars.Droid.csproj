@@ -77,6 +77,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.2</Version>
     </PackageReference>
+    <PackageReference Include="ReactiveUI.Uno">
+      <Version>18.3.7</Version>
+    </PackageReference>
     <PackageReference Include="Uno.UI" Version="4.7.37" />
     <PackageReference Include="Uno.UI.RemoteControl" Version="4.7.37" Condition="'$(Configuration)'=='Debug'" />
     <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.7.37" />

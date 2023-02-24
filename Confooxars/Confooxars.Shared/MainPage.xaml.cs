@@ -24,6 +24,11 @@ using DynamicData.Binding;
 using Windows.UI.Core;
 using Windows.System;
 
+
+#if __ANDROID__
+using ReactiveUI;
+#endif
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Confooxars
@@ -82,8 +87,11 @@ namespace Confooxars
             var sourceObservable = _sourceCache.Connect();
 
             sourceObservable
-                .ObserveOn()
-                //.ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
+#if __ANDROID__
+                .ObserveOn(RxApp.MainThreadScheduler)
+#else
+                .ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
+#endif
                 .Bind(out _photosBinding)
                 .DisposeMany()
                 .Subscribe();
@@ -91,14 +99,22 @@ namespace Confooxars
             sourceObservable
                 .Filter(a => a.Id % 2 == 0)
                 .Sort(SortExpressionComparer<Photo>.Descending(b => b.Id))
-                //.ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
+#if __ANDROID__
+                .ObserveOn(RxApp.MainThreadScheduler)
+#else
+                .ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
+#endif
                 .Bind(out _evenPhotodBinding)
                 .DisposeMany()
                 .Subscribe();
 
             sourceObservable
                 .Filter(a => a.Id % 10 == 0)
-                //.ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
+#if __ANDROID__
+                .ObserveOn(RxApp.MainThreadScheduler)
+#else
+                .ObserveOnDispatcher(Windows.UI.Core.CoreDispatcherPriority.Normal)
+#endif
                 .Bind(out _10thPhotoBinding)
                 .DisposeMany()
                 .Subscribe();
