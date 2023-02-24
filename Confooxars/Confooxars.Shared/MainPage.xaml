@@ -1,0 +1,84 @@
+﻿<Page
+    x:Class="Confooxars.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Confooxars"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="DefaultListItemTemplate">
+                <Frame BorderBrush="BlueViolet"
+                           CornerRadius="5"
+                           Padding="8"
+                           BorderThickness="0.75">
+                    <Grid Height="80">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Id}"
+                                       Grid.Row="0" />
+                        <TextBlock Text="{Binding Title}"
+                                       TextWrapping="Wrap"
+                                       Grid.Row="1"/>
+                        <Image Source="{Binding ThumbnailUrl}"
+                                   Grid.RowSpan="2"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Right"
+                                   Stretch="Uniform"
+                                    />
+                    </Grid>
+                </Frame>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Button Command="{Binding LoadDataCommand}"
+                    Content="Load Data" />
+            <Button Command="{Binding AddItemCommand}"
+                    Content="Add One Item" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1">
+            <Button Command="{Binding UpdateItemCommand}"
+                    Content="Update Item" />
+            <Button Command="{Binding DeleteItemCommand}"
+                    Content="Delete Item" />
+        </StackPanel>
+
+        <ListView ItemsSource="{Binding Photos}"
+                  Grid.Column="0"
+                  ItemTemplate="{StaticResource DefaultListItemTemplate}"
+                  Grid.Row="1"/>
+
+        <ListView ItemsSource="{Binding EvenPhotos}"
+                  Grid.Column="1"
+                  ItemTemplate="{StaticResource DefaultListItemTemplate}"
+                  Grid.Row="1"/>
+
+        <ListView ItemsSource="{Binding TH10PhotoBinding}"
+                  Grid.Column="2"
+                  ItemTemplate="{StaticResource DefaultListItemTemplate}"
+                  Grid.Row="1"/>
+
+    </Grid>
+</Page>

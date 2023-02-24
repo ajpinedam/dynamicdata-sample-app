@@ -1,0 +1,3 @@
+﻿namespace Confooxars.Skia.Gtk
+{
+}
